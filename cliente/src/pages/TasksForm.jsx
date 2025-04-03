@@ -12,7 +12,7 @@ function TasksForm() {
     onSubmit: async (values, actions) => {
       console.log(values);
       try {
-        const respuesta = await createTaskRequest({...values, done: 1});
+        const respuesta = await createTaskRequest({...values, done: 0});
         console.log(respuesta);
         actions.resetForm();
       } catch (error) {

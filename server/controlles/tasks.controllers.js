@@ -56,14 +56,20 @@ export const updateTask = async (req, res) => {
         return res.status(500).json({ message: "Error en el servidor" });
     }
 }
-export const deleteTask = (req, res) => {
-    try{
-        res.send("Delete Task " + req.params.id);
-        const {id} = req.params;
-        pool.query("DELETE FROM tasks WHERE id = ?", [id]);
-        if (respuesta[0].affectedRows == 0) return res.status(404).json({message: "no exixte el id"});
-    }catch (error) {
-        return res.status(500).json({ message: "Error en el servidor" });
+export const deleteTask = async (req, res) => { // Asegúrate de que la función sea async si usas promises con pool.query
+    try {
+      const { id } = req.params;
+  
+      const [respuesta] = await pool.query("DELETE FROM tasks WHERE id = ?", [id]);
+  
+      if (respuesta.affectedRows > 0) {
+        return res.json({ message: `Tarea con ID ${id} eliminada exitosamente` });
+      } else {
+        return res.status(404).json({ message: `No existe ninguna tarea con el ID ${id}` });
+      }
+  
+    } catch (error) {
+      console.error("Error al eliminar la tarea:", error); // Log del error para depuración
+      return res.status(500).json({ message: "Error en el servidor al eliminar la tarea" });
     }
-    //pool.query("DELETE FROM nombre_de_la_tabla WHERE id = ?", [id]);
-}
+  };

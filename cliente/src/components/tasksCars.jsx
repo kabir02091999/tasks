@@ -1,7 +1,20 @@
 import react from "react";
 import '../css/TasksCars.css'; // Importamos los estilos
 
+import {deleteTaskRequest} from '../api/tasks.api.js';
+
 function TasksCars({ task }) {
+   
+   const handleDelete = async (id) => {
+      try {
+         await deleteTaskRequest(id);
+         console.log("Task deleted successfully");
+      } catch (error) {
+         console.error("Error deleting task:", error);
+      }
+   } 
+
+
   return (
     <div className="tasks-cars-container">
       <div className="cars-content">
@@ -12,7 +25,7 @@ function TasksCars({ task }) {
         </span>
       </div>
       <div className="cars-actions">
-        <button className="cars-button delete-btn">Delete</button>
+        <button className="cars-button delete-btn" onClick={() => handleDelete(task.id)} >Delete</button>
         <button className="cars-button edit-btn">Edit</button>
       </div>
     </div>
