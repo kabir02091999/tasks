@@ -1,0 +1,74 @@
+/* Contenedor principal */
+.navbar-container {
+    background-color: #4a90e2;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  .navbar-title {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Lista de navegación */
+  .navbar-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+  }
+  
+  /* Items */
+  .navbar-item {
+    margin: 0;
+  }
+  
+  /* Enlaces */
+  .navbar-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  
+  .navbar-link:hover {
+    color: #f0f0f0;
+    transform: translateY(-2px);
+  }
+  
+  /* Efecto de subrayado */
+  .navbar-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar-link:hover::after {
+    width: 100%;
+  }
+  
+  /* Estilo activo */
+  .navbar-link.active {
+    font-weight: 600;
+  }
+  
+  .navbar-link.active::after {
+    width: 100%;
+  }
