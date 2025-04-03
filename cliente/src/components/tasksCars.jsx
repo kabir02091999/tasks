@@ -3,18 +3,17 @@ import '../css/TasksCars.css'; // Importamos los estilos
 
 import {deleteTaskRequest} from '../api/tasks.api.js';
 
-function TasksCars({ task }) {
-   
+function TasksCars({ task , setLoading , loading }) {
    const handleDelete = async (id) => {
-      try {
+    setLoading(!loading);
+    try {
          await deleteTaskRequest(id);
          console.log("Task deleted successfully");
+         
       } catch (error) {
          console.error("Error deleting task:", error);
       }
    } 
-
-
   return (
     <div className="tasks-cars-container">
       <div className="cars-content">
