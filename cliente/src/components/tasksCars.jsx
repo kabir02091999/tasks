@@ -6,9 +6,12 @@ import {deleteTaskRequest} from '../api/tasks.api.js';
 
 function TasksCars({ task , setLoading , loading }) {
   const navigate = useNavigate(); // Inicializamos el hook useNavigate
-  
+    const handleClick = (id) => {
+      //setLoading(!loading);  
+      handleDelete(task.id);
+    }  
    const handleDelete = async (id) => {
-    setLoading(!loading);
+    
     try {
          await deleteTaskRequest(id);
          console.log("Task deleted successfully");
@@ -16,7 +19,15 @@ function TasksCars({ task , setLoading , loading }) {
       } catch (error) {
          console.error("Error deleting task:", error);
       }
+      //console.log(loading)
+      setLoading(!loading); 
    } 
+
+   const handleEdit = (id) => {
+    setLoading(!loading);
+    navigate(`/edit/${id}`)
+   }
+
   return (
     <div className="tasks-cars-container">
       <div className="cars-content">
@@ -27,8 +38,8 @@ function TasksCars({ task , setLoading , loading }) {
         </span>
       </div>
       <div className="cars-actions">
-        <button className="cars-button delete-btn" onClick={() => handleDelete(task.id)} >Delete</button>
-        <button className="cars-button edit-btn" onClick={()=>navigate(`/edit/${task.id}`)}>Edit</button>
+        <button className="cars-button delete-btn" onClick={() => handleClick(task.id)} >Delete</button>
+        <button className="cars-button edit-btn" onClick={()=>handleEdit(task.id)}>Edit</button>
       </div>
     </div>
   );

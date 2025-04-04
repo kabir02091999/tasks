@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 
 function TasksForm() {
   const id = useParams().id; // Obtenemos el id de la URL
-  console.log(id); // Imprimimos el id en la consola para verificar que se está obteniendo correctamente
+  //console.log(id); // Imprimimos el id en la consola para verificar que se está obteniendo correctamente
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -22,9 +22,6 @@ function TasksForm() {
         else {
           await createTaskRequest({...values, done: 0});
         }
-        //await createTaskRequest({...values, done: 0});
-        //const respuesta = 
-        //console.log(respuesta);
         actions.resetForm();
       } catch (error) {
         console.error("Error submitting form:", error);
