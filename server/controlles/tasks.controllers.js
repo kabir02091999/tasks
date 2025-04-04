@@ -56,7 +56,21 @@ export const updateTask = async (req, res) => {
         return res.status(500).json({ message: "Error en el servidor" });
     }
 }
-export const deleteTask = async (req, res) => { // Asegúrate de que la función sea async si usas promises con pool.query
+
+export const updateTaskDone = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { done } = req.body; // Se espera que el cuerpo contenga el nuevo estado de 'done'
+        console.log(done);
+        const respuesta = await pool.query("UPDATE tasks SET done = ? WHERE id = ?", [done, id]);
+        if (respuesta[0].affectedRows == 0) return res.status(404).json({ message: "no existe el id" });
+        res.send("Update Task " + req.params.id);
+    } catch (error) {
+        return res.status(500).json({ message: "Error en el servidor" });
+    }
+}
+
+export const deleteTask = async (req, res) => { 
     try {
       const { id } = req.params;
   

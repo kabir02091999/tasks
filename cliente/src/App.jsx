@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 
 // Importing the components for the routes
-import Tasks from './pages/Tasks.jsx';
+import Tasks from './pages/tasks.jsx';
 import TasksForm from './pages/TasksForm.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Navbar from './components/Navbar.jsx';

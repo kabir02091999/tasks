@@ -2,13 +2,20 @@ import react from "react";
 import '../css/TasksCars.css'; // Importamos los estilos
 import { useNavigate } from "react-router"; // Importamos el hook useNavigate para la navegación
 
-import {deleteTaskRequest} from '../api/tasks.api.js';
+import {deleteTaskRequest, updateTaskDoneRequest} from '../api/tasks.api.js';
 
 function TasksCars({ task , setLoading , loading }) {
   const navigate = useNavigate(); // Inicializamos el hook useNavigate
-    const handleClick = (id) => {
+    const handleClick = async (id) => {
       //setLoading(!loading);  
-      handleDelete(task.id);
+      /* handleDelete(task.id); */
+      try {
+         await updateTaskDoneRequest(id, {...task, done: !task.done});
+         console.log("Task updated successfully");
+      } catch (error) {
+         console.error("Error updating task:", error);
+      }
+      setLoading(!loading); 
     }  
    const handleDelete = async (id) => {
     
@@ -38,8 +45,9 @@ function TasksCars({ task , setLoading , loading }) {
         </span>
       </div>
       <div className="cars-actions">
-        <button className="cars-button delete-btn" onClick={() => handleClick(task.id)} >Delete</button>
+        <button className="cars-button delete-btn" onClick={() => handleDelete(task.id)} >Delete</button>
         <button className="cars-button edit-btn" onClick={()=>handleEdit(task.id)}>Edit</button>
+        <button className="cars-button done-btn" onClick={() => handleClick(task.id)}>Done</button>
       </div>
     </div>
   );
