@@ -1,9 +1,12 @@
 import react from "react";
 import '../css/TasksCars.css'; // Importamos los estilos
+import { useNavigate } from "react-router"; // Importamos el hook useNavigate para la navegación
 
 import {deleteTaskRequest} from '../api/tasks.api.js';
 
 function TasksCars({ task , setLoading , loading }) {
+  const navigate = useNavigate(); // Inicializamos el hook useNavigate
+  
    const handleDelete = async (id) => {
     setLoading(!loading);
     try {
@@ -25,7 +28,7 @@ function TasksCars({ task , setLoading , loading }) {
       </div>
       <div className="cars-actions">
         <button className="cars-button delete-btn" onClick={() => handleDelete(task.id)} >Delete</button>
-        <button className="cars-button edit-btn">Edit</button>
+        <button className="cars-button edit-btn" onClick={()=>navigate(`/edit/${task.id}`)}>Edit</button>
       </div>
     </div>
   );

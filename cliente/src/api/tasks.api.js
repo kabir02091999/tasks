@@ -20,6 +20,16 @@ export const deleteTaskRequest = async (id) => {
     }
 }
 
+export const updateTaskRequest = async (id, task) => {
+    try {
+      const response = await axios.put(`http://localhost:3000/tasks/${id}`, task);
+      return response.data;
+    } catch (error) {
+      console.error("Error updating task:", error);
+      throw error;
+    }
+  };
+
 export const createTaskRequest = async (task) => {
     try {
         const response = await axios.post("http://localhost:3000/tasks", task);

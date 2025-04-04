@@ -1,19 +1,30 @@
 import React from "react";
 import { useFormik } from "formik";
-import { createTaskRequest } from '../api/tasks.api.js';
+import { createTaskRequest , updateTaskRequest} from '../api/tasks.api.js';
 import '../css/TasksForm.css'; // Importamos los estilos
+import { useParams } from "react-router";
 
 function TasksForm() {
+  const id = useParams().id; // Obtenemos el id de la URL
+  console.log(id); // Imprimimos el id en la consola para verificar que se está obteniendo correctamente
   const formik = useFormik({
     initialValues: {
       title: "",
       description: "",
     },
     onSubmit: async (values, actions) => {
-      console.log(values);
+      //console.log(values + " " + id); // Imprimimos los valores del formulario y el id en la consola para verificar que se están obteniendo correctamente
       try {
-        const respuesta = await createTaskRequest({...values, done: 0});
-        console.log(respuesta);
+        
+        if (id) {
+          await updateTaskRequest(id, {...values, done: 0});
+        }
+        else {
+          await createTaskRequest({...values, done: 0});
+        }
+        //await createTaskRequest({...values, done: 0});
+        //const respuesta = 
+        //console.log(respuesta);
         actions.resetForm();
       } catch (error) {
         console.error("Error submitting form:", error);
